@@ -12,6 +12,8 @@ const Select = () => {
   const [ selectedSurface, setSelectedSurface ] = useState('');
   const [ selectedSkaterPref, setSelectedSkaterPref ] = useState('');
   const [ userSelection, setUserSelection ] = useState([]);
+  //const [ range, setRange ] = useState([""]);
+  
 
 
 
@@ -58,23 +60,25 @@ const Select = () => {
   };
 
 
+
+
   const handleUserSubmit = (event) => {
     event.preventDefault();
-    //setUserSelection(event.target.value);
+
 
     const userSelection = ref(database, `surfaceType/${selectedSurface}/skaterPreference/${selectedSkaterPref}`);
 
-    get(userSelection).then (snapshot => {
-      setUserSelection(snapshot.val())
+    get(userSelection).then (results => {
+      setUserSelection(results.val())
+     
     })
-
 
   }
 
 
   return (
   
-<section>
+<section class="selector">
 
   <form value={userSelection} onSubmit={handleUserSubmit}>
         <div className="formMain">
@@ -98,7 +102,14 @@ const Select = () => {
         </label>
         </div>
 
-        <div>
+    
+
+          {
+            userSelection.map((range) => <button className="wheels">{range}</button>)
+          }
+
+<div>
+
         <label htmlFor="wheelRange" className="sr-only">Click for wheel range</label>
         <button className="button">SPIN IT</button>
         </div>
@@ -107,14 +118,7 @@ const Select = () => {
 
   </form>
 
-{/* {
-  userSelection.map(showRange => {
-    return (
-      <p className="showRange" key={showRange}></p>
 
-    )
-  })
-} */}
 
 
   </section>
