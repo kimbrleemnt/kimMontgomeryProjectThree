@@ -1,16 +1,21 @@
 import './App.css';
 import Header from './components/Header';
 import Form from './components/Form';
-import WheelList from './components/WheelList';
-function App() {
+import Select from './components/Select';
+
+
+
+function App() {  
+
+
+
   return (
-    <>
+    <div className="App">
       <Header />
-
-      <WheelList />
-
-      <Form />
-    </>
-  );
+      <Select /> 
+      <Form/>
+    </div>
+  )
 }
+
 export default App;

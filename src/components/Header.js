@@ -1,9 +1,14 @@
 const Header = () => {
+
+
+
+
   return (
       <header>
-        <nav>
-          <div className="logo"><h1>Logo</h1></div>
-        </nav>  
+
+        <h1>roller derby wheel selector</h1>
+        <h2>take a spin to skate your best</h2>
+
 
       </header>
   )
