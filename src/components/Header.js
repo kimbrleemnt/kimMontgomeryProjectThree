@@ -1,7 +1,6 @@
+
+
 const Header = () => {
-
-
-
 
   return (
       <header>

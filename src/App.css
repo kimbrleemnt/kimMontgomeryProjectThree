@@ -35,7 +35,7 @@ h1 {
   font-size: 4rem;
   font-weight: 500;
   text-transform: uppercase;
-  margin-bottom: 0;
+  margin: 110px 0 0;
   color: #E1357F;
 }
 
@@ -44,7 +44,35 @@ h2 {
   font-size: 1.5rem;
 letter-spacing: 2px;
   color: #E1357F;
+  margin-bottom: 40px;
 }
+
+
+nav a {
+
+  text-decoration: none;
+  float: right;
+  padding: 20px 50px 0 0;
+  font-family: 'Bungee Inline', cursive;
+  font-size: 1.4rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+  color: #E1357F;
+
+
+}
+
+.logo {
+  position: absolute;
+  height: 100px;
+  width: auto;
+  padding: 0;
+  top: 20px;
+  left: 20px;
+
+}
+
 
 form {
   padding-bottom: 60px;
@@ -63,7 +91,7 @@ form {
 img {
 
   max-width: 100%;
-  padding: 0 60px;
+  padding: 0 100px;
 }
 
 
@@ -111,9 +139,9 @@ button {
   margin: 10px auto 0 auto;
   padding: 15px 50px;
   background: #E1357F;
-  color: #40B316;
+  color: black;
   font-size: 2rem;
-  letter-spacing: 2px;
+  letter-spacing: 3px;
   font-weight: 600;
   outline: none;
   border: none;
@@ -133,7 +161,7 @@ button:active {
   font-size: 1.5rem;
   background: #40B316;
   border: 3px solid #e1357f;
-  color: #E1357F;
+  color: black;
   margin: 0 10px 30px;
   border-radius: 100px;
 }
@@ -155,6 +183,12 @@ button:active {
   to {
     transform: rotate(360deg);
   }
+}
+
+
+.about {
+  padding: 80px 60px;
+
 }
 
 @media (max-width: 810px) {

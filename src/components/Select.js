@@ -91,7 +91,7 @@ const Select = () => {
           </select>
           </label>
 
-          <img src="./derbyWheel.png" alt="" className="rotate"/>
+          <img src="./derbyWheel.svg" alt="" className="rotate"/>
 
         <label>Select:
         <select value={selectedSkaterPref} disabled={!selectedSurface} onChange={handleSkaterPrefChange}>
