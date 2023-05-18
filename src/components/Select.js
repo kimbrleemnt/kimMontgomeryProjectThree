@@ -6,49 +6,37 @@ import { useState, useEffect } from 'react';
 const Select = () => {
 
   const database = getDatabase(app);
-
   const [ allSurfaces, setAllSurfaces ] = useState([]);
   const [ allSkaterPref, setAllSkaterPref ] = useState([]);
   const [ selectedSurface, setSelectedSurface ] = useState('');
   const [ selectedSkaterPref, setSelectedSkaterPref ] = useState('');
   const [ userSelection, setUserSelection ] = useState([]);
-  //const [ range, setRange ] = useState([""]);
-  
-
-
 
   useEffect( () => {
     const database = getDatabase(app);
     const surfaceRef = ref(database, '/surfaceType');
     
-      onValue(surfaceRef, (dbResponse) => {
-        const surfaceList = Object.keys(dbResponse.val());
-        setAllSurfaces(surfaceList);
-  
-      });
-  
-    }, []);
-  
-    useEffect(() => {
-  
-      if (selectedSurface) {
-        const database = getDatabase(app);
-        const skaterPrefRef = ref(database, `surfaceType/${selectedSurface}/skaterPreference`);
-  
-        onValue(skaterPrefRef, (dbResponse) => {
-          const skaterPrefList = Object.keys(dbResponse.val());
-  
-          setAllSkaterPref(skaterPrefList);
-  
-        });
-  
-      } else {
-        setAllSkaterPref([]);
-      }
-  
-      }, [selectedSurface]);
-  
+    onValue(surfaceRef, (dbResponse) => {
+      const surfaceList = Object.keys(dbResponse.val());
+      setAllSurfaces(surfaceList);
 
+    });
+  
+  }, []);
+  
+  useEffect(() => {
+
+    if (selectedSurface) {
+      const database = getDatabase(app);
+      const skaterPrefRef = ref(database, `surfaceType/${selectedSurface}/skaterPreference`);
+
+      onValue(skaterPrefRef, (dbResponse) => {
+        const skaterPrefList = Object.keys(dbResponse.val());
+
+        setAllSkaterPref(skaterPrefList);      });
+    } else {
+      setAllSkaterPref([]);
+  }}, [selectedSurface]);
 
 
   const handleSurfaceChange = (event) => {
@@ -60,67 +48,48 @@ const Select = () => {
   };
 
 
-
-
   const handleUserSubmit = (event) => {
     event.preventDefault();
 
+  const userSelection = ref(database, `surfaceType/${selectedSurface}/skaterPreference/${selectedSkaterPref}`);
 
-    const userSelection = ref(database, `surfaceType/${selectedSurface}/skaterPreference/${selectedSkaterPref}`);
-
-    get(userSelection).then (results => {
+      get(userSelection).then (results => {
       setUserSelection(results.val())
-     
-    })
-
-  }
-
+    });
+  };
 
   return (
   
-<section class="selector">
-
-  <form value={userSelection} onSubmit={handleUserSubmit}>
-        <div className="formMain">
+  <section className="wrapper">
+    <form value={userSelection} onSubmit={handleUserSubmit}>
+      <div className="formMain">
         <label>Select:
-        <select value={selectedSurface} onChange={handleSurfaceChange}>
-            <option value=""> pick one: </option>
-            {allSurfaces.map((surface) => ( 
-              <option key={surface} value={surface}>{surface} </option>
-            ))}
-          </select>
-          </label>
-
-          <img src="./derbyWheel.svg" alt="" className="rotate"/>
-
-        <label>Select:
-        <select value={selectedSkaterPref} disabled={!selectedSurface} onChange={handleSkaterPrefChange}>
-            <option value="">pick one:</option>{allSkaterPref.map((skaterPref) => (
-            <option key={skaterPref} value={skaterPref}>{skaterPref} </option>
-            ))}
-        </select>
+          <select value={selectedSurface} onChange={handleSurfaceChange} required>
+              <option value=""> Surface Type </option> {allSurfaces.map((surface) => ( 
+                <option key={surface} value={surface}>{surface} </option>
+              ))}
+            </select>
         </label>
+
+            <object data="./derbyWheel.svg" className="rotate" type="image" title="spinning wheel"></object>
+
+        <label>Select:
+          <select value={selectedSkaterPref} disabled={!selectedSurface} onChange={handleSkaterPrefChange} required>
+              <option value="">Skater Preference</option>{allSkaterPref.map((skaterPref) => (
+              <option key={skaterPref} value={skaterPref}>{skaterPref} </option>
+              ))}
+          </select>
+        </label>
+      </div>
+
+      { userSelection.map((range) => <button className="results">{range}</button>) }
+
+      <div>
+          <label htmlFor="wheelRange" className="sr-only">Click for wheel range</label>
+          <button className="button">SPIN IT</button>
         </div>
 
-    
-
-          {
-            userSelection.map((range) => <button className="wheels">{range}</button>)
-          }
-
-<div>
-
-        <label htmlFor="wheelRange" className="sr-only">Click for wheel range</label>
-        <button className="button">SPIN IT</button>
-        </div>
-
-
-
-  </form>
-
-
-
-
+    </form>
   </section>
 
 
