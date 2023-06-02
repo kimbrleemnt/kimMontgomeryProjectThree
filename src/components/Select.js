@@ -1,16 +1,16 @@
 import app from '../firebase';
-import { onValue, getDatabase, ref } from 'firebase/database' //add get
+import { onValue, getDatabase, ref, get } from 'firebase/database' 
 import { useState, useEffect } from 'react';
 
 
 const Select = () => {
 
-  //const database = getDatabase(app);
+  const database = getDatabase(app);
   const [ allSurfaces, setAllSurfaces ] = useState([]);
   const [ allSkaterPref, setAllSkaterPref ] = useState([]);
   const [ selectedSurface, setSelectedSurface ] = useState('');
   const [ selectedSkaterPref, setSelectedSkaterPref ] = useState('');
-  //const [ userSelection, setUserSelection ] = useState([]);
+  const [ userSelection, setUserSelection ] = useState([]);
 
   useEffect( () => {
     const database = getDatabase(app);
@@ -48,20 +48,20 @@ const Select = () => {
   };
 
 
-  // const handleUserSubmit = (event) => {
-  //   event.preventDefault();
+  const handleUserSubmit = (event) => {
+    event.preventDefault();
 
-  // // const userSelection = ref(database, `surfaceType/${selectedSurface}/skaterPreference/${selectedSkaterPref}`);
+  const userSelection = ref(database, `surfaceType/${selectedSurface}/skaterPreference/${selectedSkaterPref}`);
 
-  // //     get(userSelection).then (results => {
-  // //     setUserSelection(results.val())
-  // //   });
-  // };
+      get(userSelection).then (results => {
+      setUserSelection(results.val())
+    });
+  };
 
   return (
   
   <section className="wrapper">
-    <form /*</section>value={userSelection}  onSubmit={handleUserSubmit}*/>
+    <form value={userSelection}  onSubmit={handleUserSubmit}>
       <div className="formMain">
         <label>Select:
           <select value={selectedSurface} onChange={handleSurfaceChange} required>
@@ -82,7 +82,7 @@ const Select = () => {
         </label>
       </div>
 
-      {/* { userSelection.map((range) => <button className="results">{range}</button>) } */}
+      { userSelection.map((range) => <button className="results">{range}</button>) }
 
       <div>
           <label htmlFor="wheelRange" className="sr-only">Click for wheel range</label>
